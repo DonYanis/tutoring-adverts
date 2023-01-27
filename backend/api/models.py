@@ -12,13 +12,13 @@ class Wilaya(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False)
-    wilaya = models.ForeignKey(Wilaya,on_delete=models.CASCADE)
+    wilaya = models.ForeignKey(Wilaya,on_delete=models.CASCADE,related_name='wilaya')
     def __str__(self) :
         return self.name
 
 class Address(models.Model):
     name = models.CharField(max_length=300, null=False, blank=False)
-    city = models.ForeignKey(City,on_delete=models.CASCADE)
+    city = models.ForeignKey(City,on_delete=models.CASCADE,related_name='city')
     def __str__(self) :
         return self.name
 
@@ -28,7 +28,7 @@ class User(AbstractUser):
 
     email=models.EmailField(unique=True,null=True)
     phonenumber=models.CharField(max_length=20, null=True,blank=True)
-    address = models.ForeignKey(Address,on_delete=models.CASCADE)
+    #address = models.ForeignKey(Address,on_delete=models.CASCADE)
     #avatar=models.ImageField(null=True,blank=True)
     #has_avatar=models.BooleanField(default='False')
 
@@ -48,10 +48,10 @@ class Advert(models.Model):
     description = models.TextField(max_length=400, null=True,blank=True)
 
     tarif = models.FloatField()
-    address = models.ForeignKey(Address,on_delete=models.CASCADE)
+    address = models.ForeignKey(Address,on_delete=models.CASCADE,related_name='address')
     
 
-    publisher = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    publisher = models.ForeignKey(User,on_delete=models.CASCADE,null=False,related_name='publisher')
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

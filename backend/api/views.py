@@ -4,15 +4,17 @@ from rest_framework.decorators import api_view
 
 from .models import Advert
 from .controllers.advertController import *
+from .controllers.addressController import *
+from .controllers.userController import *
 
 @api_view(['GET'])
 def test(request):
     advert = Advert.objects.all()
-    routes = {'message': advert[0].id, 'body' : advert[0].body }
+    routes = {'message': advert[0].id }
     return Response(routes)
 
 @api_view(['GET','POST'])
-def AdvertsView(request):
+def advertsView(request):
 
     if request.method == 'GET':
         return getAllAdds(request)
@@ -22,15 +24,69 @@ def AdvertsView(request):
 
     #elif request.method == 'DELETE':
         #return utils.deleteNote(request, pk)
-"""
+
 @api_view(['GET','PUT','DELETE'])
-def AdvertView(request,pk):
+def advertView(request,pk):
 
     if request.method == 'GET':
-        #return utils.getNote(request, pk)
+        return getAdd(request, pk)
 
     #elif request.method == 'PUT':
         #return utils.updateNote(request, pk)
 
     #elif request.method == 'DELETE':
-        #return utils.deleteNote(request, pk)"""
+        #return utils.deleteNote(request, pk)
+
+@api_view(['GET','POST'])
+def wilayasView(request):
+
+    if request.method == 'GET':
+        return getAllWilayas(request)
+
+@api_view(['GET','PUT','DELETE'])
+def wilayaView(request,pk):
+
+    if request.method == 'GET':
+        return getWilaya(request,pk)
+
+
+@api_view(['GET','POST'])
+def citiesView(request):
+
+    if request.method == 'GET':
+        return getAllCities(request)
+
+
+@api_view(['GET','PUT','DELETE'])
+def cityView(request,pk):
+
+    if request.method == 'GET':
+        return getCity(request,pk)
+
+@api_view(['GET','POST'])
+def addressesView(request):
+
+    if request.method == 'GET':
+        return getAllAddress(request)
+
+
+@api_view(['GET','PUT','DELETE'])
+def addressView(request,pk):
+
+    if request.method == 'GET':
+        return getAddress(request,pk)
+
+@api_view(['GET','POST'])
+def usersView(request):
+
+    if request.method == 'GET':
+        return getAllUsers(request)
+
+
+@api_view(['GET','PUT','DELETE'])
+def userView(request,pk):
+
+    if request.method == 'GET':
+        return getUser(request,pk)
+
+
