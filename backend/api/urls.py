@@ -7,10 +7,6 @@ urlpatterns = [
     path('adverts/',views.advertsView, name="adverts"),
     path('adverts/<str:pk>',views.advertView, name="advert"),
     
-    path('saved/',views.test, name="saved"),
-    path('posted/',views.test, name="posted"),
-    path('profile/<str:pk>',views.test, name="profile"),
-
     path('wilayas/',views.wilayasView, name="wilayas"),
     path('wilayas/<str:pk>',views.wilayaView, name="wilaya"),
 
@@ -22,6 +18,14 @@ urlpatterns = [
 
     path('users/',views.usersView, name="users"),
     path('users/<str:pk>',views.userView, name="user"),
+
+    path('favorites/<str:pk>',views.favoritesView, name="favorites"),
+    path('posted/<str:pk>',views.postedView, name="posted"),
+
+    path('scrap-apprentus/',views.scrapSiteA, name="scrapA"),
+    path('scrap-profparticulier/',views.scrapSiteB, name="scrapB"),
+#don't touch this !
+    path('insert-db/',views.insertDB, name="insert-db"),
 ]
 
 

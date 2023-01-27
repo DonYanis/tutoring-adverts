@@ -6,6 +6,29 @@ from .models import Advert
 from .controllers.advertController import *
 from .controllers.addressController import *
 from .controllers.userController import *
+from .controllers.scrap_apprentus_controller import scrapSiteOne
+from .controllers.scrap_profparticulier_controller import scrapSiteTwo
+from .database.insertion import insertMap 
+
+
+@api_view(['POST'])
+def insertDB(request):
+    if request.method == 'POST' and request.data['code']=='secret':
+        insertMap()
+        return Response({'message' : 'success'})
+    else :
+        return Response({'message' : 'failed'})
+
+@api_view(['GET'])
+def scrapSiteA(request):
+    data = scrapSiteOne()
+    return Response(data)
+
+@api_view(['GET'])
+def scrapSiteB(request):
+    data = scrapSiteTwo()
+    return Response(data)
+
 
 @api_view(['GET'])
 def test(request):
@@ -89,4 +112,14 @@ def userView(request,pk):
     if request.method == 'GET':
         return getUser(request,pk)
 
+@api_view(['GET','POST','DELETE'])
+def favoritesView(request,pk):
 
+    if request.method == 'GET':
+        return getFavorites(request,pk)
+
+@api_view(['GET','POST','DELETE'])
+def postedView(request,pk):
+
+    if request.method == 'GET':
+        return getPosted(request,pk)

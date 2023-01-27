@@ -28,7 +28,7 @@ class User(AbstractUser):
 
     email=models.EmailField(unique=True,null=True)
     phonenumber=models.CharField(max_length=20, null=True,blank=True)
-    #address = models.ForeignKey(Address,on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, related_name='useraddress', null=True, blank=True)
     #avatar=models.ImageField(null=True,blank=True)
     #has_avatar=models.BooleanField(default='False')
 
@@ -71,7 +71,7 @@ class FavoriteAdvert(models.Model):
             ordering=['-created']
 
     def __str__(self) :
-        return self.advert
+        return str(self.id)
 
 class AdvertImage(models.Model):
     image=models.ImageField(null=True,default="default.svg")

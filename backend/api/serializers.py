@@ -22,9 +22,10 @@ class AddressSerializer(ModelSerializer):
         fields = ('id','name','city') 
 
 class UserSerializer(ModelSerializer):
+    address = AddressSerializer(many=False, read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'username','first_name','last_name','email','phonenumber')
+        fields = ('id', 'username','first_name','last_name','email','phonenumber','address')
 
 class AdvertSerializer(ModelSerializer):
     address = AddressSerializer(many=False, read_only=True)
