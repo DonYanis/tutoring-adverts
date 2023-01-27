@@ -1,21 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
     
-advert_types=('online','offline')
-
-class User(AbstractUser):
-    is_admin=models.BooleanField(default='False')
-
-    email=models.EmailField(unique=True,null=True)
-    phonenumber=models.CharField(max_length=20, null=True,blank=True)
-    #avatar=models.ImageField(null=True,blank=True)
-    #has_avatar=models.BooleanField(default='False')
-
-    USERNAME_FIELD='email'
-    REQUIRED_FIELDS=[]
-
-    def __str__(self) :
-        return self.email
+advert_types=(('online','Online'),('offline','Offline'))
+advert_categories = (('primaire','Primaire'),('collège','Collège'),('lycée','Lyceé'))
 
 
 class Wilaya(models.Model):
@@ -35,10 +22,34 @@ class Address(models.Model):
     def __str__(self) :
         return self.name
 
-class Advert(models.Model):
-    body = models.TextField(null=True,blank=True)
+
+class User(AbstractUser):
+    is_admin=models.BooleanField(default='False')
+
+    email=models.EmailField(unique=True,null=True)
+    phonenumber=models.CharField(max_length=20, null=True,blank=True)
     address = models.ForeignKey(Address,on_delete=models.CASCADE)
+    #avatar=models.ImageField(null=True,blank=True)
+    #has_avatar=models.BooleanField(default='False')
+
+    #USERNAME_FIELD='email'
+
+    def __str__(self) :
+        return self.username
+
+
+
+class Advert(models.Model):
+
+    category = models.CharField(max_length=14,choices=advert_categories,default='primaire')
+    theme = models.CharField(max_length=50,null=False,blank=False)
     type=models.CharField(max_length=14,choices=advert_types,default='offline')
+
+    description = models.TextField(max_length=400, null=True,blank=True)
+
+    tarif = models.FloatField()
+    address = models.ForeignKey(Address,on_delete=models.CASCADE)
+    
 
     publisher = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
 
@@ -49,7 +60,7 @@ class Advert(models.Model):
             ordering=['-updated','-created']
 
     def __str__(self) :
-        return self.body[0:50]
+        return self.description[0:50]
 
 class FavoriteAdvert(models.Model):
     advert = models.ForeignKey(Advert,on_delete=models.CASCADE,null=False)
@@ -69,7 +80,7 @@ class AdvertImage(models.Model):
 class FeedBack(models.Model):
     rate=models.IntegerField(default=0)
     body=models.TextField(max_length=200)
-    user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     is_accepted=models.BooleanField(default='False')
 
     created=models.DateTimeField(auto_now_add=True)
@@ -79,3 +90,21 @@ class FeedBack(models.Model):
 
     def __str__(self):
         return self.body
+
+
+
+
+class Chat(models.Model):
+    user1 = models.ForeignKey(User,on_delete=models.CASCADE,null=False,related_name='user1')
+    user2 = models.ForeignKey(User,on_delete=models.CASCADE,null=False,related_name='user2')
+    created=models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering=['-created']
+
+class Message(models.Model):
+    sender = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    chat = models.ForeignKey(Chat,on_delete=models.CASCADE,null=False)
+    text = models.CharField(max_length=200,blank=False)
+    created=models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering=['-created']

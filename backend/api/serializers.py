@@ -1,4 +1,4 @@
-from .models import Advert,User,FeedBack
+from .models import Advert,User,FeedBack,Address
 from rest_framework.serializers import ModelSerializer
 
 class AdvertSerializer(ModelSerializer):
@@ -13,5 +13,12 @@ class UserSerializer(ModelSerializer):
 
 class FeedBackSerializer(ModelSerializer):
     class Meta:
-        model = User
+        model = FeedBack
         fields = '__all__' 
+
+class AddressSerializer(ModelSerializer):
+    class Meta:
+        model = Address
+        fields = '__all__' 
+
+#Wilaya,City,,FavoriteAdvert,AdvertImage,Chat,Message
