@@ -3,7 +3,6 @@ import image_2 from "../assets/info/img_03.jpg"
 import image_3 from "../assets/info/img_04.jpg"
 import image_4 from "../assets/info/img_05.png"
 import image_7 from "../assets/info/img_08.png"
-import image_5 from "../assets/info/img_06.jpg"
 import image_6 from "../assets/info/img_07.jpg"
 import {BsArrowReturnRight} from "react-icons/bs"
 import {FaQuoteLeft, FaQuoteRight} from "react-icons/fa";
@@ -159,7 +158,8 @@ const HomeBody = () => {
 
 {/*----------------------------------------------------------------------------------------------------------------------*/}
         <div
-        className="min-h-[55vh] w-full bg-sky-800 rounded-lg flex sm:flex-row flex-col gap-4 cursor-pointer"
+        className="min-h-[55vh] w-full rounded-lg flex sm:flex-row flex-col gap-4 cursor-pointer
+        bg-gradient-to-r from-sky-800 to-sky-400"
         >
             <div
             className="sm:w-[500px] w-full h-full flex justify-center"
@@ -186,7 +186,8 @@ const HomeBody = () => {
 {/*----------------------------------------------------------------------------------------------------------------------*/}
 
         <div
-        className="min-h-[55vh] w-full bg-sky-800 rounded-lg flex sm:flex-row flex-col gap-4 cursor-pointer"
+        className="min-h-[55vh] w-ful rounded-lg flex sm:flex-row flex-col gap-4 cursor-pointer
+        bg-gradient-to-r from-sky-800 to-sky-400"
         >
             <div
             className="sm:w-[500px] w-full h-full flex justify-center"

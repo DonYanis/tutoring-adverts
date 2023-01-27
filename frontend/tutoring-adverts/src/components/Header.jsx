@@ -40,7 +40,7 @@ const Header = () => {
         <header
         className={`
         w-full h-[100vh]
-        bg-sky-800
+        bg-gradient-to-r from-sky-800 to-sky-300
         flex flex-row
         relative
         `}
@@ -48,7 +48,7 @@ const Header = () => {
             <div className="w-full z-40" ><Navbar bgColor="invesible"/></div>
             <img src={header} 
             alt="header"
-            className="w-[120vh] h-[85%] ml-14 mt-9 sm:visible z-40 rounded-2xl bottom-0 absolute 
+            className="w-[120vh] h-[85%] ml-14 mt-9 sm:visible z-30 rounded-2xl bottom-0 absolute 
             "
             />
             <div

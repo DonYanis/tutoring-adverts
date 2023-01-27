@@ -1,18 +1,24 @@
 import { useState } from "react"
 
-const Navbar = (bgColor) => {
+const Navbar = (logoColor) => {
     const [aboutUsHovered , setAboutUsHovered] = useState(false);
     const [contactUsHovered , setContactUsHovered] = useState(false);
     const [loginHovered , setLoginHovered] = useState(false);
     const [professionalsHovered , setProfessionalsHovered] = useState(false);
+    const [navbarBgHidden , setNavbarBgHidden] = useState(true);
+
+    window.addEventListener("scroll" , () => setNavbarBgHidden(false));
 
     return (
         <nav
-        className={`w-full flex justify-between bg-${bgColor}`}
+        className={`w-full flex justify-between z-40 top-0 fixed bg-opacity-70
+         ${navbarBgHidden ? "" :"bg-white"}
+        `}
         >
             <div
-            className="h-[15vh] text-orange-100
-            p-5 text-3xl font-semibold laptop:w-[20vh] w-0 cursor-pointer"
+            className={`h-[10vh] 
+            p-2 text-3xl font-semibold laptop:w-[20vh] w-0 cursor-pointer 
+            ${navbarBgHidden ? `text-${logoColor}` : "text-gray-900"}`}
             >
                 LOGO
             </div>
