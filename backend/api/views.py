@@ -8,6 +8,7 @@ from .controllers.addressController import *
 from .controllers.userController import *
 from .controllers.scrap_apprentus_controller import scrapSiteOne
 from .controllers.scrap_profparticulier_controller import scrapSiteTwo
+from .controllers.chatController import *
 from .database.insertion import insertMap 
 
 
@@ -128,3 +129,24 @@ def postedView(request,pk):
 
     if request.method == 'GET':
         return getPosted(request,pk)
+
+@api_view(['GET','POST'])
+def userChatsView(request,pk):
+
+    if request.method == 'GET':
+        return getUserChats(request,pk)
+    
+    if request.method == 'POST':
+        return createChat(request,pk)
+
+@api_view(['GET','POST','DELETE'])
+def chatView(request,pk):
+
+    if request.method == 'GET':
+        return getChat(request,pk)
+
+    elif request.method == 'DELETE':
+        return deleteChat(request,pk)
+    
+    elif request.method == 'POST':
+        return addMessage(request,pk)

@@ -25,6 +25,10 @@ urlpatterns = [
 
     path('scrap-apprentus/',views.scrapSiteA, name="scrapA"),
     path('scrap-profparticulier/',views.scrapSiteB, name="scrapB"),
+
+    path('chats/<str:pk>',views.userChatsView, name="user-chats"),
+    path('chat/<str:pk>',views.chatView, name="user-chat"),
+    
 #don't touch this !
     path('insert-db/',views.insertDB, name="insert-db"),
 ]

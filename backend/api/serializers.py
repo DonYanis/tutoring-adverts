@@ -1,6 +1,5 @@
-from .models import Advert,User,FeedBack,Address,City,Wilaya
+from .models import Advert,User,FeedBack,Address,City,Wilaya,Chat,Message
 from rest_framework.serializers import ModelSerializer
-
 
 class CitySerializer(ModelSerializer):
     class Meta:
@@ -12,8 +11,6 @@ class WilayaSerializer(ModelSerializer):
     class Meta:
         model = Wilaya
         fields = ('id', 'name', 'cities')
-
-
 
 class AddressSerializer(ModelSerializer):
     city = CitySerializer(many=False, read_only=True)
@@ -34,11 +31,22 @@ class AdvertSerializer(ModelSerializer):
         model = Advert
         fields = '__all__'
 
-
-
 class FeedBackSerializer(ModelSerializer):
     class Meta:
         model = FeedBack
+        fields = '__all__' 
+
+class ChatSerializer(ModelSerializer):
+    teacher = UserSerializer(many=False, read_only=True)
+    student = UserSerializer(many=False, read_only=True)
+    advert = AdvertSerializer(many=False,read_only=True)
+    class Meta:
+        model = Chat
+        fields = ['id','teacher','student','advert'] 
+
+class MessageSerializer(ModelSerializer):
+    class Meta:
+        model = Message
         fields = '__all__' 
 
 

@@ -22,7 +22,6 @@ class Address(models.Model):
     def __str__(self) :
         return self.name
 
-
 class User(AbstractUser):
     is_admin=models.BooleanField(default='False')
 
@@ -35,9 +34,7 @@ class User(AbstractUser):
     #USERNAME_FIELD='email'
 
     def __str__(self) :
-        return self.username
-
-
+        return str(self.id)
 
 class Advert(models.Model):
 
@@ -91,15 +88,16 @@ class FeedBack(models.Model):
     def __str__(self):
         return self.body
 
-
-
-
 class Chat(models.Model):
-    user1 = models.ForeignKey(User,on_delete=models.CASCADE,null=False,related_name='user1')
-    user2 = models.ForeignKey(User,on_delete=models.CASCADE,null=False,related_name='user2')
+    teacher = models.ForeignKey(User,on_delete=models.CASCADE,null=True,related_name='teacher')
+    student = models.ForeignKey(User,on_delete=models.CASCADE,null=True,related_name='student')
+    advert = models.ForeignKey(Advert,on_delete=models.CASCADE,null=True,related_name='course')
     created=models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering=['-created']
+
+    def __str__(self) :
+        return self.advert.theme
 
 class Message(models.Model):
     sender = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
@@ -108,3 +106,6 @@ class Message(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering=['-created']
+    
+    def __str__(self) :
+        return self.sender.username
