@@ -10,6 +10,15 @@ from .controllers.scrap_apprentus_controller import scrapSiteOne
 from .controllers.scrap_profparticulier_controller import scrapSiteTwo
 from .controllers.chatController import *
 from .database.insertion import insertMap 
+from .controllers.searchController import *
+
+
+@api_view(['POST'])
+def searchAdvert(request):
+
+    if request.method == 'POST':
+        return searchAdds(request)
+
 
 
 @api_view(['POST'])

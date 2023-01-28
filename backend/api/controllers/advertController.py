@@ -5,6 +5,7 @@ from api.models import Advert,Address,City,User
 
 """
 {
+    "title" : "title",
     "category" : "primaire",
     "theme" : "math",
     "type" : "offline",
@@ -33,6 +34,7 @@ def createAdd(request):
         address = Address.objects.create(name = data['address-name'],city = city)
         publisher = User.objects.get(id = data['user'])
         advert = Advert.objects.create(
+            title = data['title'],
             category = data['category'],
             theme = data['theme'],
             type = data['type'],
@@ -56,6 +58,7 @@ def updateAdd(request,pk):
             if not Address.objects.filter(name = data['address-name'],city = city).exists() :
                 advert.address = Address.objects.create(name = data['address-name'],city = city)
             advert.category = data['category']
+            advert.title = data['title']
             advert.theme = data['theme']
             advert.type = data['type']
             advert.description = data['description']

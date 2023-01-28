@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('',views.test, name="routes"),
 
+    path('search/',views.searchAdvert, name="search-adverts"),
+
     path('adverts/',views.advertsView, name="adverts"),
     path('adverts/<str:pk>',views.advertView, name="advert"),
     
@@ -28,7 +30,7 @@ urlpatterns = [
 
     path('chats/<str:pk>',views.userChatsView, name="user-chats"),
     path('chat/<str:pk>',views.chatView, name="user-chat"),
-    
+
 #don't touch this !
     path('insert-db/',views.insertDB, name="insert-db"),
 ]

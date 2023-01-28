@@ -38,6 +38,8 @@ class User(AbstractUser):
 
 class Advert(models.Model):
 
+    title = models.CharField(max_length=60,null=True,blank=True)
+
     category = models.CharField(max_length=14,choices=advert_categories,default='primaire')
     theme = models.CharField(max_length=50,null=False,blank=False)
     type=models.CharField(max_length=14,choices=advert_types,default='offline')
@@ -57,7 +59,7 @@ class Advert(models.Model):
             ordering=['-updated','-created']
 
     def __str__(self) :
-        return self.description[0:50]
+        return self.title
 
 class FavoriteAdvert(models.Model):
     advert = models.ForeignKey(Advert,on_delete=models.CASCADE,null=False)
@@ -97,7 +99,7 @@ class Chat(models.Model):
         ordering=['-created']
 
     def __str__(self) :
-        return self.advert.theme
+        return self.advert.title
 
 class Message(models.Model):
     sender = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
