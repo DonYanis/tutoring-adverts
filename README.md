@@ -23,3 +23,8 @@
 ### the scrapping :
     scrap-apprentus/
     scrap-profparticulier/
+
+### chats by user id :
+    chats/id
+### chat messages by chat id :
+    chat/id
