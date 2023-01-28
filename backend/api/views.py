@@ -29,11 +29,10 @@ def scrapSiteB(request):
     data = scrapSiteTwo()
     return Response(data)
 
-
 @api_view(['GET'])
 def test(request):
-    advert = Advert.objects.all()
-    routes = {'message': advert[0].id }
+    adverts = Advert.objects.all()
+    routes = {'number of adverts': len(adverts) }
     return Response(routes)
 
 @api_view(['GET','POST'])
@@ -42,11 +41,9 @@ def advertsView(request):
     if request.method == 'GET':
         return getAllAdds(request)
 
-    #elif request.method == 'PUT':
-        #return utils.updateNote(request, pk)
+    elif request.method == 'POST':
+        return createAdd(request)
 
-    #elif request.method == 'DELETE':
-        #return utils.deleteNote(request, pk)
 
 @api_view(['GET','PUT','DELETE'])
 def advertView(request,pk):
@@ -54,33 +51,33 @@ def advertView(request,pk):
     if request.method == 'GET':
         return getAdd(request, pk)
 
-    #elif request.method == 'PUT':
-        #return utils.updateNote(request, pk)
+    elif request.method == 'PUT':
+        return updateAdd(request, pk)
 
-    #elif request.method == 'DELETE':
-        #return utils.deleteNote(request, pk)
+    elif request.method == 'DELETE':
+        return deleteAdd(request, pk)
 
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def wilayasView(request):
 
     if request.method == 'GET':
         return getAllWilayas(request)
 
-@api_view(['GET','PUT','DELETE'])
+@api_view(['GET'])
 def wilayaView(request,pk):
 
     if request.method == 'GET':
         return getWilaya(request,pk)
 
 
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def citiesView(request):
 
     if request.method == 'GET':
         return getAllCities(request)
 
 
-@api_view(['GET','PUT','DELETE'])
+@api_view(['GET'])
 def cityView(request,pk):
 
     if request.method == 'GET':
@@ -112,11 +109,19 @@ def userView(request,pk):
     if request.method == 'GET':
         return getUser(request,pk)
 
-@api_view(['GET','POST','DELETE'])
+@api_view(['GET'])
 def favoritesView(request,pk):
 
     if request.method == 'GET':
         return getFavorites(request,pk)
+
+@api_view(['POST','DELETE'])
+def favoriteView(request,uk,ak):
+
+    if request.method == 'POST':
+        return addFavorite(request,uk,ak)
+    elif request.method == 'DELETE':
+        return deleteFavorite(request,uk,ak)
 
 @api_view(['GET','POST','DELETE'])
 def postedView(request,pk):

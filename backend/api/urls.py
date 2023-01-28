@@ -20,6 +20,7 @@ urlpatterns = [
     path('users/<str:pk>',views.userView, name="user"),
 
     path('favorites/<str:pk>',views.favoritesView, name="favorites"),
+    path('favorites/<str:uk>/<str:ak>',views.favoriteView, name="favorites"),
     path('posted/<str:pk>',views.postedView, name="posted"),
 
     path('scrap-apprentus/',views.scrapSiteA, name="scrapA"),
