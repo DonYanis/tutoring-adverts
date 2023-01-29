@@ -6,6 +6,8 @@ import Home from "./scenes/Home";
 import LoginPage from "./scenes/LoginPage";
 import RegisterPage from "./scenes/RegisterPage";
 import UserDashboardPage from "./scenes/UserDashboardPage";
+import AccountPage from "./scenes/AccountPage";
+import OfferPage from "./scenes/OfferPage";
 
 //-----------------------------------------------------------------------------------------
 
@@ -15,10 +17,14 @@ function App() {
     <section>
       <Router>
         <Routes>
+
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile" element={<UserDashboardPage />}/>
+          <Route path="/home" element={<UserDashboardPage />}/>
+          <Route path="/account" element={<AccountPage/>}/>
+          <Route path="/offers/:id" element={<OfferPage/>} />
+
         </Routes>
       </Router>
     </section>
