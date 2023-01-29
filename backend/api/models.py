@@ -73,22 +73,15 @@ class FavoriteAdvert(models.Model):
         return str(self.id)
 
 class AdvertImage(models.Model):
-    image=models.ImageField(null=True,default="default.svg")
+    image=models.ImageField(null=True,upload_to="images/")
     advert=models.ForeignKey(Advert,on_delete=models.SET_NULL,null=True)
 
-class FeedBack(models.Model):
-    rate=models.IntegerField(default=0)
-    body=models.TextField(max_length=200)
-    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    is_accepted=models.BooleanField(default='False')
-
-    created=models.DateTimeField(auto_now_add=True)
-
+class UserImage(models.Model):
+    image=models.ImageField(null=True,upload_to="images/")
+    user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    created = models.DateTimeField(auto_now_add=True)
     class Meta:
-        ordering=['-rate']
-
-    def __str__(self):
-        return self.body
+            ordering=['-created']
 
 class Chat(models.Model):
     teacher = models.ForeignKey(User,on_delete=models.CASCADE,null=True,related_name='teacher')
@@ -105,6 +98,17 @@ class Message(models.Model):
     sender = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
     chat = models.ForeignKey(Chat,on_delete=models.CASCADE,null=False)
     text = models.CharField(max_length=200,blank=False)
+    created=models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering=['-created']
+    
+    def __str__(self) :
+        return self.sender.username
+
+class Notification(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=False,related_name='notifuser')
+    text = models.CharField(max_length=200,blank=False)
+    seen = models.BooleanField(default=False)
     created=models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering=['-created']

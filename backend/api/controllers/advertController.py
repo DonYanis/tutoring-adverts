@@ -17,6 +17,21 @@ from api.models import Advert,Address,City,User
     "city" : "Amizour"
 }
 """
+def getHomeAdds(request):
+    try:
+        pri_adverts = AdvertSerializer(Advert.objects.filter(category = 'primaire'),many=True)
+        col_adverts = AdvertSerializer(Advert.objects.filter(category = 'collège'),many=True)
+        lyc_adverts = AdvertSerializer(Advert.objects.filter(category = 'lycée'),many=True)
+
+        data = {
+            "primaire" : pri_adverts.data,
+            "college" : col_adverts.data,
+            "lycee" : lyc_adverts.data
+        }
+        return Response(data)
+    except Exception as e:
+        return Response({"status" : "fail", "message" : e.__str__()},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 def getAllAdds(request):
     adverts = Advert.objects.all().order_by('-updated')

@@ -1,25 +1,24 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.decorators import  parser_classes
+from rest_framework.parsers import MultiPartParser
 
-from .models import Advert
-from .controllers.advertController import *
-from .controllers.addressController import *
-from .controllers.userController import *
+from .controllers.advertController import getAdd,getAllAdds,getHomeAdds,createAdd,updateAdd,deleteAdd
+from .controllers.addressController import getAddress,getAllAddress,getAllCities,getAllWilayas,getCity,getWilaya
+from .controllers.userController import getAllUsers,getFavorites,getPosted,getUser,addFavorite,deleteFavorite
 from .controllers.scrap_apprentus_controller import scrapSiteOne
 from .controllers.scrap_profparticulier_controller import scrapSiteTwo
-from .controllers.chatController import *
+from .controllers.chatController import createChat,getChat,getUserChats,addMessage,deleteChat
+from .controllers.notificationsController import addNotification,getNotifications,getUnseen
 from .database.insertion import insertMap 
-from .controllers.searchController import *
-
+from .controllers.searchController import searchAdds
+from .controllers.imageController import addUserImage,advertImageList,getUserImage,mainAdvertImage,uploadAdvertImages
 
 @api_view(['POST'])
 def searchAdvert(request):
 
     if request.method == 'POST':
         return searchAdds(request)
-
-
 
 @api_view(['POST'])
 def insertDB(request):
@@ -31,19 +30,24 @@ def insertDB(request):
 
 @api_view(['GET'])
 def scrapSiteA(request):
-    data = scrapSiteOne()
-    return Response(data)
+    try :
+        data = scrapSiteOne()
+        return Response(data)
+    except :
+        return Response({"status" : "fail"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def scrapSiteB(request):
-    data = scrapSiteTwo()
-    return Response(data)
+    try :
+        data = scrapSiteTwo()
+        return Response(data)
+    except :
+        return Response({"status" : "fail"},status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
-def test(request):
-    adverts = Advert.objects.all()
-    routes = {'number of adverts': len(adverts) }
-    return Response(routes)
+def homeView(request):
+    if request.method == 'GET':
+        return getHomeAdds(request)
 
 @api_view(['GET','POST'])
 def advertsView(request):
@@ -53,7 +57,6 @@ def advertsView(request):
 
     elif request.method == 'POST':
         return createAdd(request)
-
 
 @api_view(['GET','PUT','DELETE'])
 def advertView(request,pk):
@@ -79,13 +82,11 @@ def wilayaView(request,pk):
     if request.method == 'GET':
         return getWilaya(request,pk)
 
-
 @api_view(['GET'])
 def citiesView(request):
 
     if request.method == 'GET':
         return getAllCities(request)
-
 
 @api_view(['GET'])
 def cityView(request,pk):
@@ -99,7 +100,6 @@ def addressesView(request):
     if request.method == 'GET':
         return getAllAddress(request)
 
-
 @api_view(['GET','PUT','DELETE'])
 def addressView(request,pk):
 
@@ -111,7 +111,6 @@ def usersView(request):
 
     if request.method == 'GET':
         return getAllUsers(request)
-
 
 @api_view(['GET','PUT','DELETE'])
 def userView(request,pk):
@@ -159,3 +158,42 @@ def chatView(request,pk):
     
     elif request.method == 'POST':
         return addMessage(request,pk)
+
+
+@api_view(['GET','POST'])
+def notificationsView(request,pk):
+
+    if request.method == 'GET':
+        return getNotifications(request,pk)
+    
+    elif request.method == 'POST':
+        return addNotification(request,pk)
+
+@api_view(['GET'])
+def unseenNotificationsView(request,pk):
+
+    if request.method == 'GET':
+        return getUnseen(request,pk)
+
+
+
+@api_view(['GET','POST'])
+@parser_classes([MultiPartParser])
+def advertImageView(request,pk):
+    if request.method == 'GET' :
+        return advertImageList(request,pk)
+    elif request.method == 'POST' :
+        return uploadAdvertImages(request,pk)
+
+@api_view(['GET'])
+def mainImageView(request,pk):
+    if request.method == 'GET' :
+        return mainAdvertImage(request,pk)
+
+@api_view(['GET','POST'])
+def userImageView(request,pk):
+    if request.method == 'GET' :
+        return getUserImage(request,pk)
+    elif request.method == 'POST' :
+        return addUserImage(request,pk)
+        

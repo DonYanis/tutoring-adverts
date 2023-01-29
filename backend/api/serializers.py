@@ -1,5 +1,5 @@
-from .models import Advert,User,FeedBack,Address,City,Wilaya,Chat,Message
-from rest_framework.serializers import ModelSerializer
+from .models import Advert,User,Address,City,Wilaya,Chat,Message,Notification,AdvertImage
+from rest_framework.serializers import ModelSerializer,ImageField
 
 class CitySerializer(ModelSerializer):
     class Meta:
@@ -31,11 +31,6 @@ class AdvertSerializer(ModelSerializer):
         model = Advert
         fields = '__all__'
 
-class FeedBackSerializer(ModelSerializer):
-    class Meta:
-        model = FeedBack
-        fields = '__all__' 
-
 class ChatSerializer(ModelSerializer):
     teacher = UserSerializer(many=False, read_only=True)
     student = UserSerializer(many=False, read_only=True)
@@ -49,6 +44,13 @@ class MessageSerializer(ModelSerializer):
         model = Message
         fields = '__all__' 
 
+class NotificationSerializer(ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__' 
 
-
-#Wilaya,City,,FavoriteAdvert,AdvertImage,Chat,Message
+class AdvertImageSerializer(ModelSerializer):
+    image = ImageField(use_url=True)
+    class Meta:
+        model = AdvertImage
+        fields = '__all__' 

@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
-    path('',views.test, name="routes"),
+    path('home/',views.homeView, name="home"),
 
     path('search/',views.searchAdvert, name="search-adverts"),
 
@@ -31,9 +32,15 @@ urlpatterns = [
     path('chats/<str:pk>',views.userChatsView, name="user-chats"),
     path('chat/<str:pk>',views.chatView, name="user-chat"),
 
+    path('notifications/<str:pk>',views.notificationsView, name="notifications"),
+    path('notifications-unseen/<str:pk>',views.unseenNotificationsView, name="notifications-unseen"),
+
+    path('images/<str:pk>', views.advertImageView, name='image-list'),
+    path('main-image/<str:pk>', views.mainImageView, name='main-image'),
+    path('user-image/<str:pk>', views.userImageView, name='user-image'),
 #don't touch this !
     path('insert-db/',views.insertDB, name="insert-db"),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 
