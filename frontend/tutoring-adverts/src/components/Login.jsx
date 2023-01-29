@@ -16,8 +16,8 @@ const Login = () => {
                 text-sky-800 text-center
                 ">Se Connecter</h1>
                 <button
-                className="border-2 p-2 shadow-inner text-xl flex
-                items-center justify-center flex-row gap-3"
+                className="border p-2 shadow-inner text-xl flex
+                items-center justify-center flex-row gap-3 border-sky-300 rounded-lg"
                 ><span
                 className="text-2xl"
                 ><FcGoogle/></span> se connecter avec google</button>

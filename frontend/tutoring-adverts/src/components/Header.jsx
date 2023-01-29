@@ -34,8 +34,6 @@ const Header = () => {
         return () => clearInterval(timer);
     }
     ,[slideIndex])
-    console.log(subtitle);
-    console.log(slideIndex);
     return (
         <header
         className={`
@@ -45,25 +43,26 @@ const Header = () => {
         relative
         `}
         >
-            <div className="w-full z-40" ><Navbar bgColor="invesible"/></div>
+            <Navbar/>
             <img src={header} 
             alt="header"
-            className="w-[120vh] h-[85%] ml-14 mt-9 sm:visible z-30 rounded-2xl bottom-0 absolute 
+            className="w-[120vh] h-[85%] ml-14 mt-9 z-30 rounded-2xl bottom-0 absolute 
+            laptop:block hidden
             "
             />
             <div
             className=" w-3/4 h-[120vh] rounded-tl-full 
-            absolute right-0 bottom-0 bg-white
+            absolute left-1/4 bottom-0 bg-white self-start
             "
             >
                 <h1
-                className={`text-[7vh] text-gray-900 w-[55vh] ml-[50vh] mt-[25%] font-medium ease-in-out duration-500 
+                className={`text-[7vh] text-gray-900 w-[55vh] laptop:ml-[50vh] laptop:mt-[25%] mt-[50%] font-medium ease-in-out duration-500 
                 ${changed ? "opacity-0 translate-x-[40px]" : "opacity-100 translate-x-0"}`}
                 >
                     {subtitle}
-                </h1>
-                <div
-                className="text-[2vh] text-gray-900 w-[55vh] ml-[50vh] font-medium
+
+                    <div
+                className="text-[2vh] text-gray-900 w-full font-medium
                 flex flex-row mt-5
                 "
                 >
@@ -76,10 +75,12 @@ const Header = () => {
                     
                     })}
                 </div>
+                </h1>
+                
                 <a
-                className="text-gray-900 absolute bottom-[6vh] right-[10vh] 
+                className="text-gray-900 absolute bottom-[6vh] laptop:left-[60vh] left-1/2
                 text-xl font-medium "
-                ><span className="cursor-pointer hover:text-red-500 flex flex-row items-center">See more <AiOutlineDownCircle/></span></a>
+                ><span className="cursor-pointer hover:text-red-500 flex flex-row items-center">Voir plus <AiOutlineDownCircle/></span></a>
             </div>
             
             
