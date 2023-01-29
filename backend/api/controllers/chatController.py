@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from rest_framework import status
 from api.serializers import UserSerializer,ChatSerializer,MessageSerializer
 from api.models import User,Chat,Message,Advert
 from django.db.models import Q
@@ -34,16 +35,16 @@ def createChat(request,pk):
         advert = Advert.objects.get(id = data['advert'])
         teacher = advert.publisher
         if Chat.objects.filter(teacher = teacher, student = user, advert = advert).exists():
-            return Response({'status' : 'fail','message' : 'chat exists'}) 
+            return Response({'status' : 'fail','message' : 'chat exists'},status=status.HTTP_400_BAD_REQUEST) 
         else :
             chat = Chat.objects.create(
                 teacher = teacher,
                 student = user,
                 advert = advert
             )
-            return Response({'status' : 'success','message' : 'chat created', 'chatID' : chat.id}) 
+            return Response({'status' : 'success','message' : 'chat created', 'chatID' : chat.id},status=status.HTTP_201_CREATED) 
     except Exception as e:
-        return Response({'status' : 'fail','message' : e.__str__()})  
+        return Response({'status' : 'fail','message' : e.__str__()},status=status.HTTP_400_BAD_REQUEST)  
 
 def deleteChat(request,pk):
     try:
@@ -73,6 +74,6 @@ def addMessage(request,pk):
             text = text,
             chat = chat
         )
-        return Response({'status' : 'success','message' : 'message created'}) 
+        return Response({'status' : 'success','message' : 'message created'},status=status.HTTP_201_CREATED) 
     except Exception as e:
-        return Response({'status' : 'fail','message' : e.__str__()})  
+        return Response({'status' : 'fail','message' : e.__str__()},status=status.HTTP_500_INTERNAL_SERVER_ERROR)  

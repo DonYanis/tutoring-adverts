@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from rest_framework import status
 from api.serializers import AdvertSerializer
 from api.models import Advert,Address,City,User
 
@@ -44,9 +45,9 @@ def createAdd(request):
             publisher = publisher
         )
     except:
-        return Response({'status' : 'fail','message' : 'error when creating advert'})
+        return Response({'status' : 'fail','message' : 'error when creating advert'},status=status.HTTP_400_BAD_REQUEST)
     
-    return Response({'status' : 'success','message' : 'created advert successfully'})
+    return Response({'status' : 'success','message' : 'created advert successfully'},status=status.HTTP_201_CREATED)
 
 def updateAdd(request,pk):
     try :
@@ -69,7 +70,7 @@ def updateAdd(request,pk):
         
     except Exception as e:
         print(e)
-        return Response({'status' : 'fail','message' : e.__str__() + '\n error when updating advert'})
+        return Response({'status' : 'fail','message' : e.__str__() + '\n error when updating advert'},status=status.HTTP_400_BAD_REQUEST)
     
     return Response({'status' : 'success','message' : 'updated advert successfully'})
 
