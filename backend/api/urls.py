@@ -40,7 +40,6 @@ urlpatterns = [
     path('user-image/<str:pk>', views.userImageView, name='user-image'),
 
     path('login/', views.userLogin, name='login'),
-    path('register/', views.userRegister, name='register'),
 
     path('statistics/', views.stats, name='statistics'),
 

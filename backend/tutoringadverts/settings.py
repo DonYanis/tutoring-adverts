@@ -39,12 +39,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'tutoringadverts.urls'
@@ -125,10 +125,28 @@ MEDIA_ROOT = BASE_DIR/'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'api.User'
 
+# ALLOWED_HOSTS = ['*']
+
+# CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    
+]
+
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
 #added for login : 
 
 SITE_ID = 1
@@ -140,12 +158,5 @@ SITE_ID = 1
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
-LOGIN_REDIRECT_URL = 'https://www.google.com/{user.id}'
-LOGOUT_REDIRECT_URL = 'https://www.google.com/{user.id}'
-
-from django.contrib.auth.decorators import login_required
-
-@login_required
-def my_view(request):
-    LOGIN_REDIRECT_URL = f'/main/{request.user.id}'
-    # rest of your view code here
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/api/login'
+LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/api/register'

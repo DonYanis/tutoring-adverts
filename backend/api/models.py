@@ -25,7 +25,7 @@ class Address(models.Model):
 class User(AbstractUser):
     is_admin=models.BooleanField(default='False')
 
-    email=models.EmailField(unique=True,null=True)
+    email=models.EmailField(unique=False,null=True)
     phonenumber=models.CharField(max_length=20, null=True,blank=True)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, related_name='useraddress', null=True, blank=True)
     #avatar=models.ImageField(null=True,blank=True)

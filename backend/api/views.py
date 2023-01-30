@@ -5,7 +5,7 @@ from rest_framework.parsers import MultiPartParser
 from api.models import Advert,User
 
 from .controllers.advertController import getAdd,getAllAdds,getHomeAdds,createAdd,updateAdd,deleteAdd
-from .controllers.addressController import getAddress,getAllAddress,getAllCities,getAllWilayas,getCity,getWilaya
+from .controllers.addressController import getAddress,getAllAddress,getAllCities,getAllWilayas,getCity,getWilaya,addAddress
 from .controllers.userController import getAllUsers,getFavorites,getPosted,getUser,addFavorite,deleteFavorite
 from .controllers.scrap_apprentus_controller import scrapSiteOne
 from .controllers.scrap_profparticulier_controller import scrapSiteTwo
@@ -100,6 +100,8 @@ def addressesView(request):
 
     if request.method == 'GET':
         return getAllAddress(request)
+    if request.method == 'POST':
+        return addAddress(request)
 
 @api_view(['GET','PUT','DELETE'])
 def addressView(request,pk):
@@ -203,16 +205,16 @@ from django.shortcuts import render,redirect
 
 @login_required(login_url='login')
 def userLogin(request):
-    link = f'https://127.0.0.1:3000/login/{request.user.id}'
-    context={'link':link}
-    return render(request,'login.html',context)
-
-@login_required(login_url='login')
-def userRegister(request):
+    user = User.objects.get(id = request.user.id)
+    if user.address:
+        link = f'http://127.0.0.1:3000/home/{request.user.id}'
+        context={'link':link}
+        return render(request,'login.html',context)
+    else:
+        link = f'http://127.0.0.1:3000/register/{request.user.id}'
+        context={'link':link}
+        return render(request,'register.html',context)
     
-    link = f'https://127.0.0.1:3000/login/{request.user.id}'
-    context={'link':link}
-    return render(request,'register.html',context)
 
 @api_view(['GET'])
 def stats(request):

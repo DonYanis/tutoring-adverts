@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from api.serializers import WilayaSerializer,CitySerializer,AddressSerializer
-from api.models import Wilaya,City,Address
+from api.models import Wilaya,City,Address,User
 
 
 def getAllWilayas(request):
@@ -43,3 +43,16 @@ def getAddress(request,pk):
     data = serializer.data
     data.update(wilaya)
     return Response( data)
+
+def addAddress(request):
+    try :
+        data  = request.data
+        print(data)
+        city = City.objects.get(id = data['city'])
+        address = Address.objects.create(name = data['address'],city=city)
+        user = User.objects.get(id = data['user'])
+        user.address = address
+        user.save()
+        return Response( {'status':'success'})
+    except :
+        return Response( {'status':'fail'})

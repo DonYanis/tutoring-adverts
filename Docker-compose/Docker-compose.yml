@@ -1,0 +1,26 @@
+version: "3"
+
+services: 
+  backend:
+     image: python
+     ports:
+       - "8000:8000"
+     depends_on:
+       - data_base  
+     networks:
+       - monreseau
+  data_base: 
+     image: nouchka/sqlite3
+     networks:
+       - monreseau   
+  
+  frontend: 
+     image: react
+     ports:
+       - "3000:3000"
+     networks:
+       - monreseau  
+
+  
+networks:
+  monreseau:
