@@ -38,6 +38,12 @@ urlpatterns = [
     path('images/<str:pk>', views.advertImageView, name='image-list'),
     path('main-image/<str:pk>', views.mainImageView, name='main-image'),
     path('user-image/<str:pk>', views.userImageView, name='user-image'),
+
+    path('login/', views.userLogin, name='login'),
+    path('register/', views.userRegister, name='register'),
+
+    path('statistics/', views.stats, name='statistics'),
+
 #don't touch this !
     path('insert-db/',views.insertDB, name="insert-db"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

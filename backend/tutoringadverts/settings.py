@@ -28,6 +28,12 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -46,7 +52,7 @@ ROOT_URLCONF = 'tutoringadverts.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +128,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'api.User'
+
+#added for login : 
+
+SITE_ID = 1
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend'
+#     ]
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+LOGIN_REDIRECT_URL = 'https://www.google.com/{user.id}'
+LOGOUT_REDIRECT_URL = 'https://www.google.com/{user.id}'
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def my_view(request):
+    LOGIN_REDIRECT_URL = f'/main/{request.user.id}'
+    # rest of your view code here

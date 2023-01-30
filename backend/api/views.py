@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.decorators import  parser_classes
 from rest_framework.parsers import MultiPartParser
+from api.models import Advert,User
 
 from .controllers.advertController import getAdd,getAllAdds,getHomeAdds,createAdd,updateAdd,deleteAdd
 from .controllers.addressController import getAddress,getAllAddress,getAllCities,getAllWilayas,getCity,getWilaya
@@ -196,4 +197,24 @@ def userImageView(request,pk):
         return getUserImage(request,pk)
     elif request.method == 'POST' :
         return addUserImage(request,pk)
-        
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render,redirect
+
+@login_required(login_url='login')
+def userLogin(request):
+    link = f'https://127.0.0.1:3000/login/{request.user.id}'
+    context={'link':link}
+    return render(request,'login.html',context)
+
+@login_required(login_url='login')
+def userRegister(request):
+    
+    link = f'https://127.0.0.1:3000/login/{request.user.id}'
+    context={'link':link}
+    return render(request,'register.html',context)
+
+@api_view(['GET'])
+def stats(request):
+    context={'users-count':User.objects.count(),'adverts-count':Advert.objects.count()}
+    return Response(context)
