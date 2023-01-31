@@ -1,5 +1,12 @@
 # tutoring-adverts
-## GET : 
+## About the website
+#### this is a website for posting tutoring adverts made with : 
+### ReactJs
+### Django Rest Framework
+#### We implemented some unit test 
+#### + deployment with Docker
+
+### some routes of the API  : 
 ### api/
 ### get adverts :
     adverts/
