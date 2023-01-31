@@ -11,7 +11,8 @@ def advertImageList(request,pk):
         imgs = AdvertImage.objects.filter(advert=advert)
         images = []
         for image in imgs :
-            images.append(image.image)
+            images.append(f'static{image.image.url}')
+            """
         in_memory = BytesIO()
         with zipfile.ZipFile(in_memory, "a") as zip:
             for i, image in enumerate(images):
@@ -20,7 +21,8 @@ def advertImageList(request,pk):
         in_memory.seek(0)
         response = FileResponse(in_memory, content_type='application/zip')
         response['Content-Disposition'] = 'attachment; filename="images.zip"'
-        return response
+        """
+        return Response({'data' : images})
     except :
         return Response({'status' : 'fail'}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 

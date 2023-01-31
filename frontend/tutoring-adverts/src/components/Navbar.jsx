@@ -4,7 +4,7 @@ import {IoMdClose} from "react-icons/io"
 import {AiOutlineInfoCircle} from "react-icons/ai";
 import {FiLogIn,FiSend} from "react-icons/fi";
 import {FaChalkboardTeacher} from "react-icons/fa";
-
+import {ReactComponent as Logo} from "../assets/logo/logo.svg"
 
 const Navbar = (logoColor) => {
     const [aboutUsHovered , setAboutUsHovered] = useState(false);
@@ -18,37 +18,44 @@ const Navbar = (logoColor) => {
     return (
         <nav
         className={`w-full flex justify-between z-40 top-0 fixed bg-opacity-70
-        right-0 left-0
+        right-0 left-0 items-center
          ${navbarBgHidden ? "" :"bg-white"}
         `}
         >
+            <a href="/">
             <div
-            className={`h-[10vh] 
-            p-2 text-3xl font-semibold laptop:w-[20vh] w-0 cursor-pointer 
+            className={`
+            p-2 cursor-pointer px-3
             ${navbarBgHidden ? `text-${logoColor}` : "text-gray-900"}`}
             >
-                LOGO
+                <Logo className="sm:w-[200px] sm:h-[80px] w-[120px] h-[50px]" />
             </div>
+            </a>
             <div
             className="w-1/2 p-4 justify-around sm:flex hidden"
             >
-                <li
-                className="list-none text-lg cursor-pointer hover:text-red-500
-                ease-in-out duration-300 font-medium
-                "
-                onMouseOver={() => setAboutUsHovered(true)}
-                onMouseLeave={() => setAboutUsHovered(false)}
-                >
-                    About us
-                    <div
-                    className={`bg-red-500 h-[2px] ease-in-out duration-500
-                    ${aboutUsHovered ? "w-full" : "w-0"}
-                    `}
+                <a href="aboutUs">
+                    <li
+                    className="list-none text-lg cursor-pointer hover:text-red-500
+                    ease-in-out duration-300 font-medium
+                    "
+                    onMouseOver={() => setAboutUsHovered(true)}
+                    onMouseLeave={() => setAboutUsHovered(false)}
                     >
+                        About us
+                        <div
+                        className={`bg-red-500 h-[2px] ease-in-out duration-500
+                        ${aboutUsHovered ? "w-full" : "w-0"}
+                        `}
+                        >
 
                     </div>
-                </li>
+                    </li>
+                </a>
 
+                <a
+                href="/login"
+                >
                 <li
                 className="list-none text-lg cursor-pointer hover:text-red-500
                 ease-in-out duration-300 font-medium
@@ -65,6 +72,7 @@ const Navbar = (logoColor) => {
 
                     </div>
                 </li>
+                </a>
 
 
                 <li

@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from api.serializers import AdvertSerializer
-from api.models import Advert,Address,City,User
+from api.models import Advert,Address,City,User,Wilaya,AdvertImage
 
 
 """
@@ -13,7 +13,7 @@ from api.models import Advert,Address,City,User
     "description" : "bla bla",
     "tarif" : 1000,
     "user" : "2",
-    "address-name" : "test",
+    "addressName" : "test",
     "city" : "Amizour"
 }
 """
@@ -41,13 +41,17 @@ def getAllAdds(request):
 def getAdd(request,pk):
     advert = Advert.objects.get(id=pk)
     serializer = AdvertSerializer(advert, many=False)
-    return Response(serializer.data)
+    data = serializer.data
+    data['wilaya'] = advert.address.city.wilaya.name
+    return Response(data)
 
 def createAdd(request):
     try :
+        print( request.data)
         data  = request.data
-        city = City.objects.get(name = data['city'])
-        address = Address.objects.create(name = data['address-name'],city = city)
+        
+        city = City.objects.get(id = data['city'])
+        address = Address.objects.create(name = data['addressName'],city = city)
         publisher = User.objects.get(id = data['user'])
         advert = Advert.objects.create(
             title = data['title'],
@@ -59,6 +63,11 @@ def createAdd(request):
             address = address,
             publisher = publisher
         )
+        #image_files=data["images"]
+        #image_files = request.FILES.getlist('images')
+        #print(data["images"])
+        #for image_file in image_files:
+            #AdvertImage.objects.create(image=image_file, advert = advert)
     except:
         return Response({'status' : 'fail','message' : 'error when creating advert'},status=status.HTTP_400_BAD_REQUEST)
     
@@ -71,8 +80,8 @@ def updateAdd(request,pk):
         advert = Advert.objects.get(id = pk)
         if advert is not None:
             city = City.objects.get(name = data['city'])
-            if not Address.objects.filter(name = data['address-name'],city = city).exists() :
-                advert.address = Address.objects.create(name = data['address-name'],city = city)
+            if not Address.objects.filter(name = data['addressName'],city = city).exists() :
+                advert.address = Address.objects.create(name = data['addressName'],city = city)
             advert.category = data['category']
             advert.title = data['title']
             advert.theme = data['theme']

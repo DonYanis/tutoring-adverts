@@ -115,28 +115,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 #STATIC_ROOT=BASE_DIR/'staticfiles'
-STATIC_URL = '/statics/'
+STATIC_URL = '/static/'
 
-MEDIA_URL = '/static/'
-MEDIA_ROOT = BASE_DIR/'static'
+#MEDIA_URL = '/static/'
+STATIC_DIR = BASE_DIR/'static'
+STATICFILES_DIRS = [STATIC_DIR]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'api.User'
 
 # ALLOWED_HOSTS = ['*']
 
 # CORS_ALLOW_CREDENTIALS = True
-
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    
-]
 
 
 CORS_ALLOW_METHODS = [

@@ -2,7 +2,8 @@ import { useState } from "react";
 import {FaBell} from "react-icons/fa";
 import {AiOutlineDown} from "react-icons/ai";
 import {GiHamburgerMenu} from "react-icons/gi";
-import {IoMdClose} from "react-icons/io"
+import {IoMdClose} from "react-icons/io";
+import {ReactComponent as Logo} from "../assets/logo/logo.svg"
 
 const UserNavbar = () => {
     const [isNotif , setIsNotif] = useState(true);
@@ -10,22 +11,25 @@ const UserNavbar = () => {
     const [navbarToggled , setNavbarToggled] = useState(false);
     return (
         <nav
-            className="fixed flex flex-row justify-between top-0 w-full pt-2 bg-white p-0 z-40"
+            className="fixed flex flex-row justify-between top-0 w-full bg-white p-0 z-40 items-center"
             >
                 <div
-                className={`h-[10vh] text-gray-900
-                p-2 text-3xl font-semibold laptop:w-[20vh] w-0 cursor-pointer`}
+                className={`text-gray-900 text-3xl cursor-pointer`}
                 >
-                    LOGO
+                    <Logo className="sm:w-[180px] sm:h-[80px] w-[120px] h-[50px]"/>
                 </div>
                 <div className="hidden laptop:block">
                     <ul
-                    className="flex flex-row gap-12 text-base font-medium pt-3 pr-[10vh]"
+                    className="flex flex-row gap-12 text-base font-medium pt-3 pr-[10vh] items-center"
                     >
+                        <a
+                        href="/home/:id"
+                        >
                         <li
                         className="cursor-pointer flex flex-row gap-1 px-3
                         items-end"
                         >Explorer </li>
+                        </a>
 
 
                         <li
@@ -41,16 +45,19 @@ const UserNavbar = () => {
                         ${anouncesHovered ? "h-[20vh] opacity-100 bottom-[-20vh]" :"h-0 opacity-0 bottom-[20vh]"}
                         `}
                         >
-                            <li className="ease-in-out hover:bg-sky-300 w-full p-1 rounded-xl hover:text-gray-800">Ajouter</li>
-                            <li className="ease-in-out hover:bg-sky-300 w-full p-1 rounded-xl hover:text-gray-800">Voir vos annonces</li>
+                            <a href="/add-offer/:id"><li className="ease-in-out hover:bg-sky-300 w-full p-1 rounded-xl hover:text-gray-800">Ajouter</li></a>
+                            <a href="/my-offers/:id"><li className="ease-in-out hover:bg-sky-300 w-full p-1 rounded-xl hover:text-gray-800">Voir vos annonces</li></a>
                         </div>
                         </li>
 
 
+                        <a href="/my-favorites/:id">
                         <li
                         className="cursor-pointer flex flex-row gap-1 px-3
                         items-end "
                         >Favoris </li>
+                        </a>
+                        <a href="/chat/:id">
                         <li 
                         className="text-2xl cursor-pointer flex flex-row gap-1 px-3
                         items-end relative">
@@ -60,11 +67,14 @@ const UserNavbar = () => {
                         ${isNotif ? "block" : "hidden"}
                         `}>
                         </div></li>
+                        </a>
 
-                        <li
-                        className="cursor-pointer flex flex-row gap-1 px-3
-                        items-end"
-                        >Votre Compte</li>
+                        <a href="/account/:id">
+                            <li
+                            className="cursor-pointer flex flex-row gap-1 px-3
+                            items-end"
+                            >Votre Compte</li>
+                        </a>
                         
                         <li
                         className="cursor-pointer flex flex-row gap-1 px-3

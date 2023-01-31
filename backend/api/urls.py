@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+
 urlpatterns = [
     path('home/',views.homeView, name="home"),
 
@@ -45,7 +44,7 @@ urlpatterns = [
 
 #don't touch this !
     path('insert-db/',views.insertDB, name="insert-db"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] 
 
 
 

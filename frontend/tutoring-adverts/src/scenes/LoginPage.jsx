@@ -5,7 +5,7 @@ import Login from "../components/Login"
 const LoginPage = () => {
     return(
         <section className="relative w-full min-h-[100vh]">
-            <Navbar logoColor='orange-100'/>
+            
             <Login />
             
 

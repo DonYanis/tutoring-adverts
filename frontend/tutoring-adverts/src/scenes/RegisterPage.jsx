@@ -5,7 +5,6 @@ import Register from "../components/Register"
 const RegisterPage = () => {
     return(
         <section className="relative w-full">
-            <Navbar />
             <Register />
             
 

@@ -7,16 +7,16 @@ from django.db.models import Q
 
 """
 {
-    "key-words" : ['sport'],
+    "keyWords" : ['sport'],
     "theme" : "math",
     "category" : "primaire",
     "wilaya" : "Alger",
     "city" : "Alger",
     "type" : "offline",
-    "tarif-min" : 500,
-    "tarif-max" : 1000,
-    "date-min" : "2023-01-01",
-    "date-max" : "2023-01-22"
+    "tarifMin" : 500,
+    "tarifMax" : 1000,
+    "dateMin" : "2023-01-01",
+    "dateMax" : "2023-01-22"
 }
 not specified args : exemple : 
     "type" : "",
@@ -27,7 +27,7 @@ def searchAdds(request):
     data = request.data
     adverts = Advert.objects.all()
    
-    key_words = data['key-words']
+    key_words = data['keyWords']
     q_objects = [Q(title__icontains=word) | Q(description__icontains=word) for word in key_words]
    
     query = reduce(operator.or_, q_objects)
@@ -43,14 +43,12 @@ def searchAdds(request):
         adverts = adverts.filter(address__city__name__iexact=data["city"])
     if len(data['type'])>1 :
         adverts = adverts.filter(type__iexact=data["type"])
-    if data['tarif-min']>0 :
-        adverts = adverts.filter(tarif__gte=data["tarif-min"])
-    if data['tarif-max']>0 :
-        adverts = adverts.filter(tarif__lte=data["tarif-max"])
-    if len(data['date-min'])>0 :
-        adverts = adverts.filter(created__gte=data["date-min"])
-    if len(data['date-max'])>0 :
-        adverts = adverts.filter(created__lte=data["date-max"])
+    if data['tarifMax']>0 :
+        adverts = adverts.filter(tarif__lte=data["tarifMax"])
+    if len(data['dateMin'])>0 :
+        adverts = adverts.filter(created__gte=data["dateMin"])
+    if len(data['dateMax'])>0 :
+        adverts = adverts.filter(created__lte=data["dateMax"])
 
     serializer = AdvertSerializer(adverts, many=True)
     return Response(serializer.data)
